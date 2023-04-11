@@ -1,0 +1,82 @@
+<html>
+<head>
+	<style>
+		.error { color: red; }
+		.message { color: blue; }
+
+		#output_table {
+			margin: 10px;
+		}
+		#input_train input,button {
+			margin: 5px;
+		}
+	</style>
+
+	<script type="text/javascript" src="lib/jquery.js"></script>
+	<script type="text/javascript" src="automobile.js"></script>
+	<script type="text/javascript" src="db_utilities.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#input_user").hide();
+			$("#database").hide();
+		});
+	</script>
+</head>
+
+<body>
+<form>
+	<select id="models">
+	    <option value="blank" selected>Select model</option>
+	</select>
+
+	<button type='button' id="get_automobiles_from_db">Update</button>
+	<script type="text/javascript">
+		$('#get_automobiles_from_db').click(function(){
+			console.log("gotta ask server all cars")
+			$.ajax({
+				url: ydb_url,
+				method: 'GET',
+				data: { "all" : 'cars' },
+				success: function(data){ update_car_list(data); }
+			})
+
+			$.ajax({
+				url: ydb_url,
+				method: 'GET',
+				data: { "all" : 'models' },
+				success: function(data){ update_model_list(data); }
+			})
+
+			$('#models').change(function(){
+				let model = '';
+				$('select option:selected').each(function() {
+					model += $(this).text();
+					if(model == 'Select model')
+						model = '';
+				});
+				$.ajax({
+					url: ydb_url,
+					method: 'GET',
+					data: model == '' ? 
+						{ "all" : 'cars' } :
+						{ "sort-by-model" : model },
+					success: function(data) { update_car_list(data); }
+				})
+			})
+		});
+	</script>
+</form>
+
+<table id='database'>
+	<tr>
+		<th>ID</th>
+		<th>Model</th>
+		<th>Name</th>
+	</tr>
+</table>
+
+<script type="text/javascript">
+</script>
+
+</body>
+</html>
