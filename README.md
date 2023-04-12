@@ -9,5 +9,5 @@
 
 ## Архитектура
 
-Архитектура проекта приведена на схеме ниже. Также её можно посмотреть в файле `architecture.uxf`
-![См. architecture.uxf](architecture.png)
+Архитектура проекта приведена на схеме ниже. Также её можно посмотреть в файле `resources/architecture.uxf`
+![См. architecture.uxf](resources/architecture.png)
