@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>200</x>
+      <y>240</y>
+      <w>200</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Config
+--
++ endpoint
++ database
+--
+*Роль*
+- Подгрузить переменные 
+окружения Yandex Functions</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>470</x>
+      <y>220</y>
+      <w>210</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>YDBClient
+--
+- config
+- driver
++ create_driver()
+--
+*Роль*
+- Объект подключения к YDB</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>450</x>
+      <y>380</y>
+      <w>230</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>stateReader
+--
+- name
+- gov_number
+- model
++ query
+--
++ select_all_cars()
++ select_all_models()
++ select_cars_by_model()
++ select_cars_by_parameters()
+--
+*Роль*
+- Формирование запросов
+к базе данных</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>720</x>
+      <y>350</y>
+      <w>170</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>handler(event, context)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>390</x>
+      <y>240</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>670</x>
+      <y>370</y>
+      <w>90</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>670</x>
+      <y>260</y>
+      <w>90</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>70.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>330</x>
+      <y>680</y>
+      <w>350</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>YDB
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>730</y>
+      <w>140</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>automobiles
+--
+- id: PK uint64
+- modelid: uint64
+- gov_number: string
+- name: string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>540</x>
+      <y>750</y>
+      <w>100</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>models
+--
+- id: PK uint64
+- model: string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>490</x>
+      <y>770</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>590</y>
+      <w>110</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+SQL запросы</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>190</x>
+      <y>180</y>
+      <w>710</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>Yandex Functions
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1070</x>
+      <y>400</y>
+      <w>150</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>Automobile
+--
+- id
+- model
+- name
++ to_table()
+--
+*Роль*
+- Отображаемый на 
+странице автомобиль</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1050</x>
+      <y>310</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>db_utilities
+--
++ update_car_list(data)
++ update_model_list(data)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1030</x>
+      <y>270</y>
+      <w>220</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>Front(js)
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>890</x>
+      <y>350</y>
+      <w>160</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+HTTP запросы</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+</diagram>
