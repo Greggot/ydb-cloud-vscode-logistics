@@ -43,24 +43,22 @@
 
 	<button type='button' id="get_automobiles_from_db">Update</button>
 	<script type="text/javascript">
-		$('#get_automobiles_from_db').click(function(){
-			$('#models').change(function(){
-				let model = '';
-				$('select option:selected').each(function() {
-					model += $(this).text();
-					if(model == 'Select model')
-						model = '';
-				});
-				$.ajax({
-					url: ydb_url,
-					method: 'GET',
-					data: model == '' ? 
-						{ "all" : 'cars' } :
-						{ "sort-by-model" : model },
-					success: function(data) { update_car_list(data); }
-				})
+		$('#models').change(function(){
+			let model = '';
+			$('select option:selected').each(function() {
+				model += $(this).text();
+				if(model == 'Select model')
+					model = '';
+			});
+			$.ajax({
+				url: ydb_url,
+				method: 'GET',
+				data: model == '' ? 
+					{ "all" : 'cars' } :
+					{ "sort-by-model" : model },
+				success: function(data) { update_car_list(data); }
 			})
-		});
+		})
 	</script>
 </form>
 
