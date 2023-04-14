@@ -1,17 +1,5 @@
 <html>
 <head>
-	<style>
-		.error { color: red; }
-		.message { color: blue; }
-
-		#output_table {
-			margin: 10px;
-		}
-		#input_train input,button {
-			margin: 5px;
-		}
-	</style>
-
 	<script type="text/javascript" src="lib/jquery.js"></script>
 	<script type="text/javascript" src="automobile.js"></script>
 	<script type="text/javascript" src="db_utilities.js"></script>
@@ -19,6 +7,7 @@
 		$(document).ready(function() {
 			$("#database").hide();
 			$('#search_button').hide();
+			$('.error_message').hide();
 
 			$.ajax({
 				url: ydb_url,
@@ -35,16 +24,26 @@
 			})
 		});
 	</script>
+	<link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-<form>
 	<select id="models">
 	    <option value="blank" selected>Select model</option>
 	</select>
 
-	<input type='text' id='searchbar' placeholder="Поиск...">
+	<input type='text' id='searchbar' placeholder="Search...">
 	<button type='button' id='search_button'>Искать</button>
+	<div class='error_message'>Not found</div>
+
+	<table id='database'>
+		<tr>
+			<th>ID</th>
+			<th>Model</th>
+			<th>Name</th>
+		</tr>
+	</table>
+
 	<script type="text/javascript">
 
 		const gov_num = /[ABEKMHOPCTYX][ABEKMHOPCTYX]\d\d\d[ABEKMHOPCTYX]/;
@@ -55,6 +54,8 @@
 			if(seach_text == '') {
 				$('#search_button').hide();
 				if(search_in_process) {
+					$("#database").hide();
+					$(".error_message").hide();
 					$.ajax({
 						url: ydb_url,
 						method: 'GET',
@@ -68,6 +69,8 @@
 		});
 
 		$('#search_button').click(function(){
+			$(".error_message").hide();
+			$("#database").hide();
 			$.ajax({
 				url: ydb_url,
 				method: 'GET',
@@ -75,7 +78,6 @@
 					{ 'gov_number' : seach_text } :	
 					{ 'name' : seach_text },
 				success: function(data) { 
-					console.log('"' + seach_text + '", is gov_number - ' + gov_num.test(seach_text));
 					search_in_process = true;
 					update_car_list(data); 
 				}
@@ -90,6 +92,8 @@
 					model = '';
 			});
 			
+			$(".error_message").hide();
+			$("#database").hide();
 			$.ajax({
 				url: ydb_url,
 				method: 'GET',
@@ -100,18 +104,6 @@
 			})
 		})
 	</script>
-</form>
-
-<table id='database'>
-	<tr>
-		<th>ID</th>
-		<th>Model</th>
-		<th>Name</th>
-	</tr>
-</table>
-
-<script type="text/javascript">
-</script>
 
 </body>
 </html>

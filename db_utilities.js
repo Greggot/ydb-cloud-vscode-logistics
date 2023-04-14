@@ -9,11 +9,16 @@ function update_car_list(data)
 {
     $("#database td").parent().remove();
     let received_cars = JSON.parse(preconvert_json(data));
-    for(let i = 0; i < received_cars.length; ++i) {
-        let car = new Automobile(received_cars[i]);
-        $('#database tr:last').after(car.to_table_entry());
+    if(received_cars.length > 0)
+    {
+        for(let i = 0; i < received_cars.length; ++i) {
+            let car = new Automobile(received_cars[i]);
+            $('#database tr:last').after(car.to_table_entry());
+        }
+        $("#database").show();
+    } else {
+        $('.error_message').show();
     }
-    $("#database").show();
 }
 
 function update_model_list(data)
