@@ -18,6 +18,8 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#database").hide();
+			$('#search_button').hide();
+
 			$.ajax({
 				url: ydb_url,
 				method: 'GET',
@@ -41,8 +43,45 @@
 	    <option value="blank" selected>Select model</option>
 	</select>
 
-	<button type='button' id="get_automobiles_from_db">Update</button>
+	<input type='text' id='searchbar' placeholder="Поиск...">
+	<button type='button' id='search_button'>Искать</button>
 	<script type="text/javascript">
+
+		const gov_num = /[ABEKMHOPCTYX][ABEKMHOPCTYX]\d\d\d[ABEKMHOPCTYX]/;
+		var seach_text = '';
+		var search_in_process = false;
+		$('#searchbar').on('input', function(){
+			seach_text = $(this).val();
+			if(seach_text == '') {
+				$('#search_button').hide();
+				if(search_in_process) {
+					$.ajax({
+						url: ydb_url,
+						method: 'GET',
+						data: { "all" : 'cars' },
+						success: function(data){ update_car_list(data); }
+					})
+				}
+			}
+			else
+				$('#search_button').show();
+		});
+
+		$('#search_button').click(function(){
+			$.ajax({
+				url: ydb_url,
+				method: 'GET',
+				data: gov_num.test(seach_text) ? 
+					{ 'gov_number' : seach_text } :	
+					{ 'name' : seach_text },
+				success: function(data) { 
+					console.log('"' + seach_text + '", is gov_number - ' + gov_num.test(seach_text));
+					search_in_process = true;
+					update_car_list(data); 
+				}
+			})
+		})
+
 		$('#models').change(function(){
 			let model = '';
 			$('select option:selected').each(function() {
@@ -50,6 +89,7 @@
 				if(model == 'Select model')
 					model = '';
 			});
+			
 			$.ajax({
 				url: ydb_url,
 				method: 'GET',

@@ -1,7 +1,6 @@
 var ydb_url = 'https://functions.yandexcloud.net/d4e1kh1fs1avg1jd64mb'
 
 function preconvert_json(string) {
-    console.log("  convert from:" + string);
     let json = string.split('\'').join("\"");
     return json.split('b\"').join("\"");
 }
